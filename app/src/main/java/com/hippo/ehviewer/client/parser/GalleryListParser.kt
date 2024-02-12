@@ -230,11 +230,9 @@ object GalleryListParser {
             val children = gl.children()
             if (children.size > uploaderIndex) {
                 val div = children[uploaderIndex]
-                if (div != null) {
-                    gi.disowned = div.attr("style").contains("opacity:0.5")
-                    val a = div.children().first()
-                    gi.uploader = a?.text()?.trim { it <= ' ' } ?: div.text().trim { it <= ' ' }
-                }
+                gi.disowned = div.attr("style").contains("opacity:0.5")
+                val a = div.children().first()
+                gi.uploader = a?.text()?.trim { it <= ' ' } ?: div.text().trim { it <= ' ' }
             }
             if (children.size > pagesIndex) {
                 val matcher = PATTERN_PAGES.matcher(children[pagesIndex].text())
