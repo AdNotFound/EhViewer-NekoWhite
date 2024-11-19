@@ -178,7 +178,7 @@ dependencies {
     implementation("dev.rikka.rikkax.insets:insets:1.3.0")
     implementation("dev.rikka.rikkax.layoutinflater:layoutinflater:1.3.0")
     //noinspection GradleDependency
-    implementation("dev.rikka.rikkax.material:material:1.6.6")
+    implementation("dev.rikka.rikkax.material:material:2.7.2")
     implementation("dev.rikka.rikkax.preference:simplemenu-preference:1.0.3")
 
     // https://coil-kt.github.io/coil/changelog/
