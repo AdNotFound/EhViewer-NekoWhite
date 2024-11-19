@@ -139,56 +139,50 @@ android {
 
 dependencies {
     // https://developer.android.com/jetpack/androidx/releases/activity
-    implementation("androidx.activity:activity-ktx:1.9.3")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.biometric:biometric-ktx:1.4.0-alpha02")
-    implementation("androidx.browser:browser:1.8.0")
-    implementation("androidx.collection:collection-ktx:1.4.5")
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.biometric)
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.collection)
 
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation(libs.androidx.core)
 
-    implementation("androidx.coordinatorlayout:coordinatorlayout:1.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.8.5")
+    implementation(libs.androidx.coordinatorlayout)
+    implementation(libs.androidx.fragment)
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    implementation("androidx.lifecycle:lifecycle-process:2.8.7")
+    implementation(libs.androidx.lifecycle.process)
 
     // https://developer.android.com/jetpack/androidx/releases/paging
-    implementation("androidx.paging:paging-runtime-ktx:3.3.4")
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.recyclerview)
 
     // https://developer.android.com/jetpack/androidx/releases/room
-    val room = "2.6.1"
-    ksp("androidx.room:room-compiler:$room")
-    implementation("androidx.room:room-paging:$room")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-    implementation("com.drakeet.drawer:drawer:1.0.3")
-    implementation("com.google.android.material:material:1.12.0")
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.paging)
+
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.drawer)
+    implementation(libs.material)
 
     // https://square.github.io/okhttp/changelogs/changelog/
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:5.0.0-alpha.14"))
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:okhttp-dnsoverhttps")
-    implementation("com.squareup.okhttp3:okhttp-coroutines")
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp.dnsoverhttps)
+    implementation(libs.okhttp.coroutines)
 
-    implementation("com.squareup.okio:okio-jvm:3.9.1")
+    implementation(libs.okio.jvm)
 
     // https://github.com/RikkaApps/RikkaX
-    implementation("dev.rikka.rikkax.core:core-ktx:1.4.1")
-    implementation("dev.rikka.rikkax.insets:insets:1.3.0")
-    implementation("dev.rikka.rikkax.layoutinflater:layoutinflater:1.3.0")
-    //noinspection GradleDependency
-    implementation("dev.rikka.rikkax.material:material:1.6.6")
-    implementation("dev.rikka.rikkax.preference:simplemenu-preference:1.0.3")
+    implementation(libs.bundles.rikkax)
 
     // https://coil-kt.github.io/coil/changelog/
-    implementation("io.coil-kt:coil:2.7.0")
+    implementation(libs.coil)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.7.3")
-    implementation("org.jsoup:jsoup:1.18.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.1")
-    implementation("io.ktor:ktor-utils:3.0.1")
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.cbor)
+    implementation(libs.ktor.utils)
+    implementation(libs.jsoup)
 }
 
 configurations.all {
@@ -200,15 +194,15 @@ ksp {
     arg("room.generateKotlin", "true")
 }
 
+val ktlintVersion = libs.ktlint.get().version
+
 spotless {
     kotlin {
-        ktlint()
+        // https://github.com/diffplug/spotless/issues/111
+        target("src/**/*.kt")
+        ktlint(ktlintVersion)
     }
     kotlinGradle {
-        ktlint().editorConfigOverride(
-            mapOf(
-                "ktlint_standard_multiline-expression-wrapping" to "disabled",
-            ),
-        )
+        ktlint(ktlintVersion)
     }
 }

@@ -1,18 +1,18 @@
 plugins {
-    id("com.android.application") version "8.6.1" apply false
-    kotlin("android") version "2.0.21" apply false
-    id("org.jetbrains.kotlin.plugin.parcelize") version "2.0.21" apply false
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21" apply false
-    id("com.google.devtools.ksp") version "2.0.21-1.0.27" apply false
-    id("com.diffplug.spotless") version "6.25.0" apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.spotless) apply false
 }
 
 tasks.register("Delete", Delete::class) {
-    delete(rootProject)
+    delete(rootProject.layout.buildDirectory)
 }
 
 buildscript {
     dependencies {
-        classpath("com.android.tools:r8:8.6.27")
+        classpath(libs.r8)
     }
 }
