@@ -116,9 +116,7 @@ class HostsFragment : BaseFragment(), View.OnClickListener {
         adapter!!.notifyDataSetChanged()
     }
 
-    override fun getFragmentTitle(): Int {
-        return R.string.hosts
-    }
+    override fun getFragmentTitle(): Int = R.string.hosts
 
     abstract class HostDialogFragment : DialogFragment() {
         private var hostsFragment: HostsFragment? = null
@@ -219,9 +217,7 @@ class HostsFragment : BaseFragment(), View.OnClickListener {
 
     private inner class HostsAdapter : RecyclerView.Adapter<HostsHolder>() {
         private val inflater = layoutInflater
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HostsHolder {
-            return HostsHolder(inflater.inflate(R.layout.item_hosts, parent, false))
-        }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HostsHolder = HostsHolder(inflater.inflate(R.layout.item_hosts, parent, false))
 
         override fun onBindViewHolder(holder: HostsHolder, position: Int) {
             val pair = data!![position]
@@ -230,9 +226,7 @@ class HostsFragment : BaseFragment(), View.OnClickListener {
             holder.itemView.setOnClickListener { onItemClick(position) }
         }
 
-        override fun getItemCount(): Int {
-            return data!!.size
-        }
+        override fun getItemCount(): Int = data!!.size
     }
 
     companion object {

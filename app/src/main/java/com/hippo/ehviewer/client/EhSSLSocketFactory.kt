@@ -25,13 +25,9 @@ import javax.net.ssl.SSLSocketFactory
 
 object EhSSLSocketFactory : SSLSocketFactory() {
     private val sslSocketFactory = getDefault() as SSLSocketFactory
-    override fun getDefaultCipherSuites(): Array<String> {
-        return sslSocketFactory.defaultCipherSuites
-    }
+    override fun getDefaultCipherSuites(): Array<String> = sslSocketFactory.defaultCipherSuites
 
-    override fun getSupportedCipherSuites(): Array<String> {
-        return sslSocketFactory.supportedCipherSuites
-    }
+    override fun getSupportedCipherSuites(): Array<String> = sslSocketFactory.supportedCipherSuites
 
     override fun createSocket(s: Socket, host: String, port: Int, autoClose: Boolean): Socket {
         val address = s.inetAddress.hostAddress.takeIf { EhDns.isInHosts(host) }
@@ -44,29 +40,21 @@ object EhSSLSocketFactory : SSLSocketFactory() {
         return socket
     }
 
-    override fun createSocket(host: String, port: Int): Socket {
-        return sslSocketFactory.createSocket(host, port)
-    }
+    override fun createSocket(host: String, port: Int): Socket = sslSocketFactory.createSocket(host, port)
 
     override fun createSocket(
         host: String,
         port: Int,
         localHost: InetAddress,
         localPort: Int,
-    ): Socket {
-        return sslSocketFactory.createSocket(host, port, localHost, localPort)
-    }
+    ): Socket = sslSocketFactory.createSocket(host, port, localHost, localPort)
 
-    override fun createSocket(host: InetAddress, port: Int): Socket {
-        return sslSocketFactory.createSocket(host, port)
-    }
+    override fun createSocket(host: InetAddress, port: Int): Socket = sslSocketFactory.createSocket(host, port)
 
     override fun createSocket(
         address: InetAddress,
         port: Int,
         localAddress: InetAddress,
         localPort: Int,
-    ): Socket {
-        return sslSocketFactory.createSocket(address, port, localAddress, localPort)
-    }
+    ): Socket = sslSocketFactory.createSocket(address, port, localAddress, localPort)
 }

@@ -25,40 +25,38 @@ import org.jsoup.Jsoup
 
 object ProfileParser {
     private val TAG = ProfileParser::class.java.simpleName
-    fun parse(body: String): Result {
-        return runCatching {
-            val d = Jsoup.parse(body)
-            val profilename = d.getElementById("profilename")
-            val displayName = profilename!!.child(0).text()
-            val avatar = runCatching {
-                val avatar =
-                    profilename.nextElementSibling()!!.nextElementSibling()!!.child(0).attr("src")
-                if (avatar.isNullOrEmpty()) {
-                    null
-                } else if (!avatar.startsWith("http")) {
-                    EhUrl.URL_FORUMS + avatar
-                } else {
-                    avatar
-                }
-            }.getOrElse {
-                ExceptionUtils.throwIfFatal(it)
-                Log.i(TAG, "No avatar")
+    fun parse(body: String): Result = runCatching {
+        val d = Jsoup.parse(body)
+        val profilename = d.getElementById("profilename")
+        val displayName = profilename!!.child(0).text()
+        val avatar = runCatching {
+            val avatar =
+                profilename.nextElementSibling()!!.nextElementSibling()!!.child(0).attr("src")
+            if (avatar.isNullOrEmpty()) {
                 null
-            }
-            Result(displayName, avatar)
-        }.getOrElse {
-            if (body.contains("Your account has been temporarily suspended")) {
-                Log.d("TAG", "Account suspended")
-                val displayName = Jsoup.parse(body).select("p.home > b > a").first()?.text()
-                Result(displayName, null)
+            } else if (!avatar.startsWith("http")) {
+                EhUrl.URL_FORUMS + avatar
             } else {
-                val m = ERROR_PATTERN.matcher(body)
-                if (m.find()) {
-                    throw EhException(m.group(1) ?: m.group(2))
-                } else {
-                    ExceptionUtils.throwIfFatal(it)
-                    throw ParseException("Parse forums error")
-                }
+                avatar
+            }
+        }.getOrElse {
+            ExceptionUtils.throwIfFatal(it)
+            Log.i(TAG, "No avatar")
+            null
+        }
+        Result(displayName, avatar)
+    }.getOrElse {
+        if (body.contains("Your account has been temporarily suspended")) {
+            Log.d("TAG", "Account suspended")
+            val displayName = Jsoup.parse(body).select("p.home > b > a").first()?.text()
+            Result(displayName, null)
+        } else {
+            val m = ERROR_PATTERN.matcher(body)
+            if (m.find()) {
+                throw EhException(m.group(1) ?: m.group(2))
+            } else {
+                ExceptionUtils.throwIfFatal(it)
+                throw ParseException("Parse forums error")
             }
         }
     }

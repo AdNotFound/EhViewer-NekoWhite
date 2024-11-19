@@ -18,14 +18,14 @@ package com.hippo.ehviewer.client
 import com.hippo.ehviewer.EhApplication
 import com.hippo.ehviewer.Hosts
 import com.hippo.ehviewer.Settings
+import okhttp3.Cache
 import okhttp3.Dns
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.dnsoverhttps.DnsOverHttps
-import okhttp3.HttpUrl.Companion.toHttpUrl
+import java.io.File
 import java.net.InetAddress
 import java.net.UnknownHostException
-import okhttp3.Cache
-import java.io.File
 
 object EhDns : Dns {
     private val hosts = EhApplication.hosts
@@ -36,7 +36,7 @@ object EhDns : Dns {
     private val doh = DnsOverHttps.Builder().client(bootstrapClient)
         .url("https://45.11.45.11/dns-query".toHttpUrl())
         .build()
-    
+
     init {
         /* Pair(ip: String!, blockedByCCP: Boolean!) */
         val ehHosts = arrayOf(
@@ -157,7 +157,5 @@ object EhDns : Dns {
             ?: dns.lookup(hostname)
     }
 
-    fun isInHosts(hostname: String): Boolean {
-        return hosts.contains(hostname) || (builtInHosts.contains(hostname))
-    }
+    fun isInHosts(hostname: String): Boolean = hosts.contains(hostname) || (builtInHosts.contains(hostname))
 }

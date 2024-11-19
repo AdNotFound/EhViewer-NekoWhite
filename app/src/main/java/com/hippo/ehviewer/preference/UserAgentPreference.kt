@@ -1,12 +1,11 @@
 package com.hippo.ehviewer.preference
 
 import android.content.Context
+import android.content.DialogInterface
 import android.util.AttributeSet
 import android.view.View
-import android.text.TextUtils
 import android.widget.EditText
 import android.widget.Spinner
-import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputLayout
 import com.hippo.ehviewer.R

@@ -172,7 +172,7 @@ object Settings {
     private const val CHROME_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.5938.35 Safari/537.36 Edg/117.0.5938.35"
     private const val FIREFOX_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0"
     private const val SAFARI_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
-    
+
     private const val KEY_USER_AGENT = "user_agent"
     const val DEFAULT_USER_AGENT = CHROME_USER_AGENT
     private const val KEY_PROXY_TYPE = "proxy_type"
@@ -351,7 +351,11 @@ object Settings {
         if (set == null) {
             set =
                 mutableSetOf(value)
-        } else if (set.contains(value)) return else set.add(value)
+        } else if (set.contains(value)) {
+            return
+        } else {
+            set.add(value)
+        }
         sSettingsPre.edit().putStringSet(key, set).apply()
     }
 
