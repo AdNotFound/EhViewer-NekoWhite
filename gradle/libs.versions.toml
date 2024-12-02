@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.1"
+agp = "8.7.3"
 android-tools-r8 = "8.7.14"
 androidx-activity = "1.9.3"
 androidx-appcompat = "1.7.0"
