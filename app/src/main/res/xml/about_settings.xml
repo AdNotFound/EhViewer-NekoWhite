@@ -33,7 +33,7 @@
         android:title="@string/settings_about_telegram"
         app:enableCopying="true"
         app:iconSpaceReserved="false"
-        app:url="https://t.me/duckproject" />
+        app:url="https://t.me/+gVqlkhCyUt1jNTVl" />
 
     <com.hippo.preference.UrlPreference
         android:key="issues"
