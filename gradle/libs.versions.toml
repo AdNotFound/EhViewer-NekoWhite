@@ -28,7 +28,7 @@ ktor-utils = "3.0.2"
 okhttp3 = "5.0.0-alpha.14"
 okio = "3.9.1"
 rikkax-material = { strictly = "1.6.6" }
-spotless = "6.25.0"
+spotless = "7.0.2"
 
 [libraries]
 androidx-activity = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
